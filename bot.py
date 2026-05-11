@@ -15,7 +15,7 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 web_app = WebAppInfo(
-    url="https://YOUR-APP.vercel.app"
+    url="https://botweb-two.vercel.app/"
 )
 
 keyboard = ReplyKeyboardMarkup(
