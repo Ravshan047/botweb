@@ -67,6 +67,8 @@
         <h2>Savat</h2>
         <ul id="cartItems"></ul>
         <p id="total">Jami: 0 so'm</p>
+        <label for="address">Manzil:</label>
+        <input type="text" id="address" placeholder="Yetkazib berish manzilini kiriting">
         <button onclick="sendOrder()">Buyurtma berish</button>
     </div>
 
@@ -75,6 +77,9 @@
         <input type="password" id="adminPass" placeholder="Parol">
         <button onclick="loginAdmin()">Kirish</button>
         <div id="adminContent" style="display:none;">
+            <h3>Mahsulotlarni boshqarish</h3>
+            <ul id="adminItems"></ul>
+            <h3>Yangi mahsulot qo'shish</h3>
             <input type="text" id="newItemName" placeholder="Mahsulot nomi">
             <input type="number" id="newItemPrice" placeholder="Narx">
             <select id="newItemCategory">

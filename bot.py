@@ -47,10 +47,11 @@ async def get_data(message: types.Message):
             data = json.loads(message.web_app_data.data)
             items = data.get('items', [])
             total = data.get('total', 0)
+            address = data.get('address', 'Manzil kiritilmagan')
             order_text = "✅ Buyurtma:\n\n"
             for item in items:
                 order_text += f"- {item['name']}: {item['price']} so'm\n"
-            order_text += f"\nJami: {total} so'm"
+            order_text += f"\nJami: {total} so'm\nManzil: {address}"
             await message.answer(order_text)
         except json.JSONDecodeError:
             await message.answer(

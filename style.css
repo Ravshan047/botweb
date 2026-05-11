@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(135deg, #121212, #1e1e1e);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     font-family: 'Arial', sans-serif;
     padding: 20px;
@@ -16,21 +16,26 @@ header {
 h1 {
     text-align: center;
     margin: 0;
-    color: #ff6b35;
+    color: #ffeb3b;
 }
 
 #adminBtn {
-    background: #ff6b35;
+    background: #ff5722;
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+#adminBtn:hover {
+    background: #d84315;
 }
 
 #menu h2 {
-    color: #ff6b35;
-    border-bottom: 2px solid #ff6b35;
+    color: #ffeb3b;
+    border-bottom: 2px solid #ffeb3b;
     padding-bottom: 10px;
 }
 
@@ -42,7 +47,8 @@ h1 {
 }
 
 .card {
-    background: #2a2a2a;
+    background: #ffffff;
+    color: #333;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -62,11 +68,13 @@ h1 {
 
 .card h3 {
     margin: 10px 0;
+    color: #333;
 }
 
 .card p {
     font-size: 18px;
-    color: #ff6b35;
+    color: #ff5722;
+    font-weight: bold;
 }
 
 .card button {
@@ -74,7 +82,7 @@ h1 {
     padding: 12px;
     border: none;
     border-radius: 10px;
-    background: #ff6b35;
+    background: #4caf50;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -83,11 +91,12 @@ h1 {
 }
 
 .card button:hover {
-    background: #e55a2b;
+    background: #388e3c;
 }
 
 #cart {
-    background: #2a2a2a;
+    background: #ffffff;
+    color: #333;
     padding: 20px;
     border-radius: 15px;
     margin-top: 20px;
@@ -101,7 +110,7 @@ h1 {
 }
 
 #cartItems button {
-    background: #ff0000;
+    background: #f44336;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -111,12 +120,36 @@ h1 {
 
 #total {
     font-size: 20px;
-    color: #ff6b35;
+    color: #ff5722;
     font-weight: bold;
 }
 
+#address {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#cart button {
+    background: #2196f3;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+#cart button:hover {
+    background: #1976d2;
+}
+
 #adminPanel {
-    background: #2a2a2a;
+    background: #ffffff;
+    color: #333;
     padding: 20px;
     border-radius: 15px;
     margin-top: 20px;
@@ -128,14 +161,32 @@ h1 {
     padding: 10px;
     width: 100%;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #ccc;
 }
 
 #adminPanel button {
-    background: #ff6b35;
+    background: #ff5722;
     color: white;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px 0;
+    transition: background 0.3s;
+}
+
+#adminPanel button:hover {
+    background: #d84315;
+}
+
+#adminItems li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#adminItems button {
+    margin-left: 10px;
 }

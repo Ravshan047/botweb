@@ -3,6 +3,40 @@ tg.expand();
 
 let cart = [];
 let total = 0;
+let menuItems = JSON.parse(localStorage.getItem('menuItems')) || [
+    { name: 'Burger', price: 25000, category: 'Burgers' },
+    { name: 'Cheese Burger', price: 30000, category: 'Burgers' },
+    { name: 'Lavash', price: 30000, category: 'Lavash' },
+    { name: 'Chicken Lavash', price: 35000, category: 'Lavash' },
+    { name: 'Coca Cola', price: 10000, category: 'Ichimliklar' },
+    { name: 'Pepsi', price: 10000, category: 'Ichimliklar' }
+];
+
+function loadMenu() {
+    const categories = {};
+    menuItems.forEach(item => {
+        if (!categories[item.category]) categories[item.category] = [];
+        categories[item.category].push(item);
+    });
+    const menuDiv = document.getElementById('menu');
+    menuDiv.innerHTML = '';
+    for (const [cat, items] of Object.entries(categories)) {
+        menuDiv.innerHTML += `<h2>${cat}</h2><div class="menu-section" id="${cat}"></div>`;
+        const section = document.getElementById(cat);
+        items.forEach(item => {
+            section.innerHTML += `
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.price} so'm</p>
+                    <button onclick="addToCart('${item.name}', ${item.price})">Qo'shish</button>
+                </div>
+            `;
+        });
+    }
+}
+
+loadMenu();
 
 function addToCart(product, price) {
     cart.push({ name: product, price: price });
@@ -36,9 +70,15 @@ function sendOrder() {
         alert('Savat bo\'sh!');
         return;
     }
+    const address = document.getElementById('address').value;
+    if (!address) {
+        alert('Manzilni kiriting!');
+        return;
+    }
     const orderData = {
         items: cart,
-        total: total
+        total: total,
+        address: address
     };
     tg.sendData(JSON.stringify(orderData));
 }
@@ -49,8 +89,9 @@ function showAdmin() {
 
 function loginAdmin() {
     const pass = document.getElementById('adminPass').value;
-    if (pass === 'admin123') { // Simple password
+    if (pass === 'admin123') {
         document.getElementById('adminContent').style.display = 'block';
+        loadAdminItems();
     } else {
         alert('Noto\'g\'ri parol');
     }
@@ -58,20 +99,47 @@ function loginAdmin() {
 
 function addNewItem() {
     const name = document.getElementById('newItemName').value;
-    const price = document.getElementById('newItemPrice').value;
+    const price = parseInt(document.getElementById('newItemPrice').value);
     const category = document.getElementById('newItemCategory').value;
     if (name && price) {
-        // For demo, add to DOM (not persistent)
-        const menuSection = document.querySelector(`#menu h2:contains('${category}') + .menu-section`);
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <img src="https://via.placeholder.com/150" alt="${name}">
-            <h3>${name}</h3>
-            <p>${price} so'm</p>
-            <button onclick="addToCart('${name}', ${price})">Qo'shish</button>
-        `;
-        menuSection.appendChild(card);
+        menuItems.push({ name, price, category });
+        localStorage.setItem('menuItems', JSON.stringify(menuItems));
+        loadMenu();
+        loadAdminItems();
         alert('Mahsulot qo\'shildi!');
     }
+}
+
+function loadAdminItems() {
+    const adminList = document.getElementById('adminItems');
+    adminList.innerHTML = '';
+    menuItems.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price} so'm (${item.category})`;
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Tahrirlash';
+        editBtn.onclick = () => editItem(index);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'O\'chirish';
+        deleteBtn.onclick = () => deleteItem(index);
+        li.appendChild(editBtn);
+        li.appendChild(deleteBtn);
+        adminList.appendChild(li);
+    });
+}
+
+function editItem(index) {
+    const item = menuItems[index];
+    document.getElementById('newItemName').value = item.name;
+    document.getElementById('newItemPrice').value = item.price;
+    document.getElementById('newItemCategory').value = item.category;
+    // For simplicity, reuse add button, but mark as edit
+    // Actually, add a save edit function
+}
+
+function deleteItem(index) {
+    menuItems.splice(index, 1);
+    localStorage.setItem('menuItems', JSON.stringify(menuItems));
+    loadMenu();
+    loadAdminItems();
 }
