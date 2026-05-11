@@ -9,7 +9,11 @@ let menuItems = JSON.parse(localStorage.getItem('menuItems')) || [
     { name: 'Lavash', price: 30000, category: 'Lavash' },
     { name: 'Chicken Lavash', price: 35000, category: 'Lavash' },
     { name: 'Coca Cola', price: 10000, category: 'Ichimliklar' },
-    { name: 'Pepsi', price: 10000, category: 'Ichimliklar' }
+    { name: 'Pepsi', price: 10000, category: 'Ichimliklar' },
+    { name: 'Caesar Salad', price: 20000, category: 'Salads' },
+    { name: 'Greek Salad', price: 22000, category: 'Salads' },
+    { name: 'Chocolate Cake', price: 15000, category: 'Desserts' },
+    { name: 'Ice Cream', price: 12000, category: 'Desserts' }
 ];
 
 function loadMenu() {
@@ -101,12 +105,14 @@ function addNewItem() {
     const name = document.getElementById('newItemName').value;
     const price = parseInt(document.getElementById('newItemPrice').value);
     const category = document.getElementById('newItemCategory').value;
-    if (name && price) {
+    if (name && price && category) {
         menuItems.push({ name, price, category });
         localStorage.setItem('menuItems', JSON.stringify(menuItems));
         loadMenu();
         loadAdminItems();
         alert('Mahsulot qo\'shildi!');
+    } else {
+        alert('Barcha maydonlarni to\'ldiring!');
     }
 }
 
