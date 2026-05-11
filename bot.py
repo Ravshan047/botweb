@@ -42,10 +42,20 @@ async def start(message: Message):
 async def get_data(message: types.Message):
 
     if message.web_app_data:
-
-        await message.answer(
-            f"✅ Buyurtma:\n\n{message.web_app_data.data}"
-        )
+        try:
+            import json
+            data = json.loads(message.web_app_data.data)
+            items = data.get('items', [])
+            total = data.get('total', 0)
+            order_text = "✅ Buyurtma:\n\n"
+            for item in items:
+                order_text += f"- {item['name']}: {item['price']} so'm\n"
+            order_text += f"\nJami: {total} so'm"
+            await message.answer(order_text)
+        except json.JSONDecodeError:
+            await message.answer(
+                f"✅ Buyurtma:\n\n{message.web_app_data.data}"
+            )
 
 async def main():
     await dp.start_polling(bot)
